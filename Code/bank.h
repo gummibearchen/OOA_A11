@@ -13,11 +13,10 @@ using namespace std;
 class Bank {
 
 private:
-    //map<int, konto*> _konten;
-    //map<int key, kunde* value> _kunden;         //map<int key, kunde* value> _kunden; variablen key und value, hier kann man mit _kunden[3] direkt aufrufen, Inex_OPerator uberladung, man kann auch mit map<string, konto*> _k; kann man auch so holen _k["Max Meier"]
+	//Liste<Kunde> kunden;		//oder Liste von Zeigern?
+	//Liste<Konto> konten;
 
 public:
-
     void schreibenInDatei(string name);
     void lesenAusDatei(string name);
     void girokontoAnlegen(int kundeID, string pin, int betrag, int dispo, double zinssatz, Datum tag = Datum::getCurrentDate());
