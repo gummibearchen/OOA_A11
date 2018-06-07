@@ -26,6 +26,8 @@ public:
     virtual void hebeAb(int betrag, Datum d, string info = "Barauszahlung");
     int kontostand();
     string kontoauszug(Datum d);
+    string toString();
+    Konto parse(string line);
 };
 
 #endif

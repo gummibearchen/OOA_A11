@@ -20,6 +20,8 @@ public:
     void hebeAb(int betrag, Datum d, string = "Barauszahlung");
     void zahleEin(int betrag, Datum d, string = "Bareinzahlung");
     void zinsgutschrift(Datum d);
+    string toString();
+    Konto parse(string line);
 };
 
 #endif

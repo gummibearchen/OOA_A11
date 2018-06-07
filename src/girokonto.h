@@ -24,6 +24,8 @@ public:
     void ueberweise(int betrag, Datum d, string info);
     void zinsgutschrift(Datum d);
     int getDispo();
+    string toString();
+    Konto parse(string line);
 };
 
 #endif
