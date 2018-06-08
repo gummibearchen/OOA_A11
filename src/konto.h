@@ -14,20 +14,27 @@ using namespace std;
 
 class Konto {
 protected:
-    string inhaber, nr, pin;
-    Datum letzteAenderung;
+    static int number;
+    int inhaber;
+    string pin;
+    int nr;
     int stand;
+    Date letzteAenderung;
     vector<Kontobewegung> bewegungen;
 
 public:
-    Konto(string inhaber, string nr, string pin, int betrag, Datum d);
+    Konto(string inhaber, string nr, string pin, int betrag, Date tag);
     virtual ~Konto();
-    virtual void zahleEin(int betrag, Datum d, string info = "Bareinzahlung");
-    virtual void hebeAb(int betrag, Datum d, string info = "Barauszahlung");
-    int kontostand();
-    string kontoauszug(Datum d);
-    string toString();
-    Konto parse(string line);
+    virtual void einzahlen(int betrag, Date tag);
+    virtual void auszahlen(int betrag, Date tag);
+    virtual void ueberweisen(int kontonr, int betrag, Date tag, string info);
+    virtual void zinsgutschrift(Date tag)=0;
+    void hinzuKontobew(Kontobewegung kb);
+    string auszug();
+    virtual string toString();
+    static Konto parse(string line);
+    int holeInhaber();
+    vector<Kontobewegung *> holeBewegungen();
 };
 
 #endif

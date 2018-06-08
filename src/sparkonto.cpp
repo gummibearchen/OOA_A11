@@ -6,37 +6,37 @@
 #include <cmath>
 
 // *******************************************************************
-Sparkonto::Sparkonto(string inhaber, string nr, string pin, int betrag,
-                     double zins, Datum d) : Konto(inhaber, nr, pin, betrag, d) {
+Sparkonto::Sparkonto(int inhaber, int nr, string pin, int betrag,
+                     double zins, Date tag) : Konto(inhaber, nr, pin, betrag, tag) {
     this->zinssatz = zins;
     this->zinsen = 0;
 }
 
 // *******************************************************************
-int Sparkonto::berechneZins(Datum d) {
-    int diffTage = d.diffDays(letzteAenderung);
+int Sparkonto::berechneZins(Date tag) {
+    int diffTage = tag.diffDays(letzteAenderung);
 
     return stand * zinssatz * diffTage / 360;
 }
 
 // *******************************************************************
-void Sparkonto::hebeAb(int betrag, Datum d, string info) {
+void Sparkonto::auszahlen(int betrag, Date tag) {
     if (stand - betrag < 0)
         throw "invalid operation";
 
-    zinsen += berechneZins(d);
-    Konto::hebeAb(betrag, d, info);
+    zinsen += berechneZins(tag);
+    Konto::hebeAb(betrag, tag, "Auszahlung");
 }
 
 // *******************************************************************
-void Sparkonto::zahleEin(int betrag, Datum d, string info) {
-    zinsen += berechneZins(d);
-    Konto::zahleEin(betrag, d, info);
+void Sparkonto::einzahlen(int betrag, Date tag) {
+    zinsen += berechneZins(tag);
+    Konto::zahleEin(betrag, tag, "Einzahlung");
 }
 
 // *******************************************************************
-void Sparkonto::zinsgutschrift(Datum d) {
-    zinsen += berechneZins(d);
+void Sparkonto::zinsgutschrift(Date tag) {
+    zinsen += berechneZins(tag);
     stand += zinsen;
     zinsen = 0;
 }

@@ -8,11 +8,11 @@
 using namespace std;
 
 // *******************************************************************
-Konto::Konto(string inhaber, string nr, string pin, int betrag, Datum d) {
+Konto::Konto(int inhaber, int nr, string pin, int betrag, Date tag) {
     this->inhaber = inhaber;
     this->nr = nr;
     this->pin = pin;
-    letzteAenderung = d;
+    letzteAenderung = tag;
     stand = betrag;
 }
 
@@ -21,17 +21,17 @@ Konto::~Konto() {
 }
 
 // *******************************************************************
-void Konto::zahleEin(int betrag, Datum d, string info) {
+void Konto::einzahlen(int betrag, Date tag) {
     stand += betrag;
-    letzteAenderung = d;
-    bewegungen.push_back(Kontobewegung(d, betrag, info));
+    letzteAenderung = tag;
+    bewegungen.push_back(Kontobewegung(tag, betrag, "Einzahlung"));
 }
 
 // *******************************************************************
-void Konto::hebeAb(int betrag, Datum d, string info) {
+void Konto::auszahlen(int betrag, Date tag) {
     stand -= betrag;
-    letzteAenderung = d;
-    bewegungen.push_back(Kontobewegung(d, -betrag, info));
+    letzteAenderung = tag;
+    bewegungen.push_back(Kontobewegung(d, -betrag, "Auszahlung"));
 }
 
 // *******************************************************************
@@ -40,14 +40,14 @@ int Konto::kontostand() {
 }
 
 // *******************************************************************
-string Konto::kontoauszug(Datum d) {
-    // eigentlich: pruefen ob Datum d groesser als letzte Bewegung
+string Konto::auszug(Date tag) {
+    // eigentlich: pruefen ob Date tag groesser als letzte Bewegung
     ostringstream os;
     vector<Kontobewegung>::iterator iter;
 
     os << "Kontoauszug fuer Kontonummer " << nr;
     os << " (" << inhaber;
-    os << ") am " << d << endl;
+    os << ") am " << tag << endl;
 
     for (iter = bewegungen.begin(); iter != bewegungen.end(); iter++) {
         os << iter->tag << ": ";

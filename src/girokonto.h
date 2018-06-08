@@ -10,22 +10,22 @@
 
 class Girokonto : public Konto {
 private:
-    double zinssatz;
     int dispolimit;
+    double zinssatz;
     int zinsen;
     int berechneZins();
-    int berechneZins(Datum d);
+    int berechneZins(Date tag);
 
 public:
     Girokonto(string inhaber, string nr, string pin, int betrag, int dispo,
-              double zins, Datum d);
-    void hebeAb(int betrag, Datum d, string info = "Barauszahlung");
-    void zahleEin(int betrag, Datum d, string info = "Bareinzahlung");
-    void ueberweise(int betrag, Datum d, string info);
-    void zinsgutschrift(Datum d);
-    int getDispo();
+              double zins, Date tag);
+    void einzahlen(int betrag, Date tag);
+    void auszahlen(int betrag, Date tag);
+    void ueberweisen(int betrag, Date tag, string info);
+    void zinsgutschrift(Date tag);
+    // int getDispo(); // nicht im UML
     string toString();
-    Konto parse(string line);
+    static Konto parse(string line);
 };
 
 #endif
